@@ -2,24 +2,28 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\ValueObject;
+namespace App\Domain\User\ValueObject;
 
-use App\Domain\ValueObject\Interface\ValidateUniqueInterface;
+use App\Domain\User\ValueObject\Interface\ValidateUniqueInterface;
+use App\Domain\User\ValueObject\Interface\ValueObjectInterface;
 
-readonly class Email implements ValidateUniqueInterface
+class Email implements ValidateUniqueInterface, ValueObjectInterface
 {
     /**
      * @throws \Exception
      */
     public function __construct(
-        public string $value
+        public string $value,
+        private array $emails
     )
     {
         $this->validateEmail($this->value);
+        $this->validateUnique($this->value, $emails);
+        unset($this->emails);
     }
 
     /**
-     * @param $email
+     * @param string $email
      * @return void
      * @throws \Exception
      */
@@ -35,5 +39,10 @@ readonly class Email implements ValidateUniqueInterface
         if (in_array($value, $elements)) {
             throw new \Exception('Email is not unique');
         }
+    }
+
+    function getValue(): string
+    {
+        return $this->value;
     }
 }

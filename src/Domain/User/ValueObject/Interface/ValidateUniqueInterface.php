@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\ValueObject\Interface;
+namespace App\Domain\User\ValueObject\Interface;
 
 interface ValidateUniqueInterface
 {

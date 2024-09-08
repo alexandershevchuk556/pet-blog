@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\ValueObject;
+namespace App\Domain\User\ValueObject;
 
-class Password
+use App\Domain\User\ValueObject\Interface\ValueObjectInterface;
+
+class Password implements ValueObjectInterface
 {
     public const MIN_LENGTH = 8;
     public const MAX_LENGTH = 11;
@@ -29,7 +31,12 @@ class Password
         $passwordLength = strlen($password);
 
         if ($passwordLength < self::MIN_LENGTH || $passwordLength > self::MAX_LENGTH) {
-            throw new \Exception('Wrong password length');
+            throw new \Exception('Password length must be between ' . self::MIN_LENGTH . ' and ' . self::MAX_LENGTH);
         }
+    }
+
+    function getValue(): string
+    {
+        return $this->value;
     }
 }
