@@ -12,6 +12,7 @@ services:
             - postgres-service
         networks:
             - nginx-php-postgres
+        restart: always
     php-service:
         build:
             context: .
@@ -23,6 +24,7 @@ services:
             - .:/var/www/project
         networks:
             - nginx-php-postgres
+        restart: always
     postgres-service:
         image: postgres
         container_name: postgres-container
@@ -32,7 +34,7 @@ services:
             - ./var/postgres:/var/lib/postgres
         environment:
           POSTGRES_PASSWORD: postgres
-        restart: always # always restart unless stopped manually
+        restart: always
         networks:
             - nginx-php-postgres
     adminer-service:

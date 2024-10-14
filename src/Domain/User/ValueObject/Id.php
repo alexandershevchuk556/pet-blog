@@ -7,22 +7,12 @@ namespace App\Domain\User\ValueObject;
 use App\Domain\User\ValueObject\Interface\ValidateUniqueInterface;
 use App\Domain\User\ValueObject\Interface\ValueObjectInterface;
 
-class Id implements ValidateUniqueInterface, ValueObjectInterface
+class Id implements ValueObjectInterface
 {
     public function __construct(
-        public readonly int    $value,
-        private readonly array $ids
+        public readonly int $value
     )
     {
-        $this->validateUnique($value, $ids);
-        unset($this->ids);
-    }
-
-    public function validateUnique($value, array $elements)
-    {
-        if (in_array($value, $elements)) {
-            throw new \Exception('Id is not unique');
-        }
     }
 
     function getValue(): int
